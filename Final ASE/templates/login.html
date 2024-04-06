@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Insight - Monitor Your Electricity Consumption</title>
+    <style>
+       body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #111, #222);
+            /* Updated background */
+            color: #d4af37;
+            /* Gold text */
+            text-align: center;
+            min-height: 100vh;
+        }
+ 
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+ 
+        .navbar a {
+            float: left;
+            display: block;
+            color: #d4af37;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+ 
+        .navbar a:hover,
+        .navbar a:focus {
+            background-color: #d4af37;
+            color: black;
+        }
+ 
+        .logo {
+            margin-top: 60px;
+            /* Adjusted logo margin to prevent cut-off */
+        }
+ 
+        .logo img {
+            width: 100px;
+            height: auto;
+        }
+ 
+        .container,
+        .form-container,
+        .about-container {
+            padding: 20px;
+            background-color: rgba(34, 34, 34, 0.9);
+            /* Semi-transparent containers */
+            color: #d4af37;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            margin: 20px auto;
+            /* Adjusted margin for consistency */
+            max-width: 800px;
+            text-align: left;
+            display: none;
+            /* Initially hide all sections */
+        }
+ 
+        .home-container {
+            display: block;
+            /* Show home section by default */
+        }
+ 
+        h1,
+        h2,
+        p,
+        input {
+            animation: fadeIn 1s ease-in-out;
+        }
+ 
+        .call-to-action {
+            background-color: #0b0c0114;
+            /* Gold background ensures visibility */
+            padding: 15px 30px;
+            /* Padding for size */
+            border-radius: 5px;
+            /* Rounded corners */
+            display: inline-block;
+            /* Allows it to be treated as block-level for padding/margin */
+            margin: 20px;
+            /* Space around the button */
+            text-decoration: none;
+            /* No underline */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Smooth transitions for hover effects */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+            /* Shadow for depth */
+            border: 2px solid #d4af37;
+            /* Defined border */
+            font-weight: bold;
+            /* Bold text */
+            font-size: 18px;
+            /* Larger text */
+            color: #fff;
+        }
+ 
+        .call-to-action:hover {
+            transform: scale(1.05);
+            /* Slightly larger on hover */
+            background-color: #b89d2f;
+            /* Slightly darker gold for feedback */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            /* Larger shadow for 'lifting' effect */
+        }
+ 
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"],
+        input[type="email"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #d4af37;
+            background-color: #333;
+            color: #d4af37;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+ 
+        input[type="text"]:hover,
+        input[type="password"]:hover,
+        input[type="email"]:hover,
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus {
+            background-color: #444;
+            border-color: #b89d2f;
+        }
+ 
+        input[type="submit"]:hover {
+            background-color: #b89d2f;
+            transform: scale(1.05);
+        }
+ 
+        a:visited {
+            color: #d4af37;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+ 
+        a:hover {
+            text-decoration: underline;
+            color: #fff;
+        }
+ 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+ 
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#home" onclick="showPage('home-container')">Home</a>
+        <a href="#login" onclick="showPage('login')">Login</a>
+        <a href="#about" onclick="showPage('about')">About Us</a>
+    </div>
+
+    <div class="logo">
+        <!-- Add your logo here -->
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo">
+    </div>
+
+    <!-- Home Section -->
+    <div id="home-container" class="container home-container">
+        <h1>Welcome to Energy Insight</h1>
+        <p>Monitor your electricity consumption and get notified about how you can save energy and reduce costs.</p>
+        <a href="#signup" class="call-to-action" onclick="showPage('login')">Get Started</a>
+    </div>
+
+    <!-- Login Section -->
+    <div id="login" class="container form-container">
+    <h2>Login</h2>
+    <form action="/" method="post"> <!-- Update the action to point to the root URL -->
+        <label for="login-username">Username:</label>
+        <input type="text" id="login-username" name="username" required>
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" name="password" required>
+        <input type="submit" value="Login">
+    </form>
+    </div>
+
+    <!-- About Us Section -->
+    <div id="about" class="container about-container" style="display:none;">
+        <p>At Winnovate Systems, we create the world of tomorrow by combining what makes us unique and similar. We always push the boundaries of discovery further. Solving problems and mysteries is the fuel of our motivation. We encourage live discussions and inspire thought leadership to build better solutions for our people and customers.</p>
+        <h3>About Winnovate Systems</h3>
+        <p>Winnovate Systems is one of the world's leading innovation
+            companies, solving clients’ problems, transforming clients' 
+            business, operating and technology models for the digital 
+            era. Our unique consultative approach mixing intensive 
+            research and intensive industrial realization helps clients 
+            envision, build and run more innovative and efficient
+            businesses and technologies, and transform the societies.</p>
+        <p>If you are excited by change, excel through autonomy, and thirsty for curiosity, this position is for you!</p>
+        <h3>Why choosing Winnovate Systems?</h3>
+        <p>It really hard to succeed nowadays in this fast-paced market satured by irrelevant copycat solutions. Winnovate Systems has been recognized as a leader of expertise in innovation.</p>
+        <p>We love big ideas and even bigger dreams. Our passion is to make humanity great again by envisioning and building creative products and services putting human experiences at the core, for our clients, our communities, our organization, and our collaborators.</p>
+        <address>
+            Advanced Computing Hub<br>
+            300 Ouellette Ave<br>
+            Windsor, N9A7B4, ON<br>
+            <a href="mailto:baskarg@winnovate.systems">baskarg@winnovate.systems</a><br>
+            <a href="http://www.winnovate.com" target="_blank">www.winnovate.com</a>
+        </address>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.container, .form-container, .about-container').forEach(function(page) {
+                page.style.display = 'none';
+            });
+            document.getElementById(pageId).style.display = 'block';
+        }
+         document.addEventListener('DOMContentLoaded', function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                var loginError = urlParams.get('error');
+ 
+                if (loginError) {
+                    var errorMessage = document.createElement('p');
+                    errorMessage.textContent = 'Incorrect username or password.';
+                    errorMessage.style.color = 'red'; // Customize as needed
+                    var formContainer = document.getElementById('login');
+                    formContainer.insertBefore(errorMessage, formContainer.firstChild);
+                }
+            });
+    </script>
+</body>
+</html>

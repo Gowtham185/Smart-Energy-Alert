@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)file:///C:/Users/rithi/Downloads/ASE%20project/dashboard.html -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="X:\Semester 1\ASE\Group Project\Final - Copy - Copy\templates\dashboard files\bootstrap.min.css">
+    <script src="X:\Semester 1\ASE\Group Project\Final - Copy - Copy\templates\dashboard files\jquery-3.5.1.slim.min.js.download"></script>
+    <script src="X:\Semester 1\ASE\Group Project\Final - Copy - Copy\templates\dashboard files\popper.min.js.download"></script>
+    <script src="X:\Semester 1\ASE\Group Project\Final - Copy - Copy\templates\dashboard files\bootstrap.min.js.download"></script>
+    <script src="X:\Semester 1\ASE\Group Project\Final - Copy - Copy\templates\dashboard files\apexcharts"></script>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #d4af37;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            /* Align content to the top */
+            height: calc(100vh - 20px);
+            /* Adjust the height to accommodate the footer */
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            top: auto;
+            left: auto;
+            background-color: rgba(51, 51, 51, 0.95);
+            /* Semi-transparent background */
+
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            /* Shadow for depth */
+            padding: 0;
+            /* Remove padding */
+            margin: 0;
+            /* Ensure it sticks to the top and left */
+        }
+
+        .sidebar a {
+            padding: 20px 30px;
+            /* Adjust padding for better spacing */
+            text-decoration: none;
+            font-size: 18px;
+            color: #d4af37;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidebar .bottom-links {
+            margin-top: auto;
+        }
+
+        .main-content {
+            width: calc(100% - 450px);
+            /* Adjusted from the original */
+            margin-left: 250px;
+            /* Same as sidebar width */
+            padding: 20px;
+            /* Adjust based on preference */
+            box-sizing: border-box;
+            position: relative;
+            /* Adjust according to layout needs */
+        }
+ 
+        .main-content h1 {
+            margin-top: 0;
+            /* Removes margin from the top */
+            text-align: left;
+            /* Aligns text to the left */
+            padding-left: 20px;
+            /* Increased to move text further right */
+        }
+
+        .footer {
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: #d4af37;
+        }
+
+        body {
+            background-image: url('https://t4.ftcdn.net/jpg/04/61/47/03/360_F_461470323_6TMQSkCCs9XQoTtyer8VCsFypxwRiDGU.jpg');
+            /* Add your image URL here */
+            background-size: cover;
+            background-attachment: fixed;
+            /* Background image does not scroll with the page */
+            background-position: center;
+            /* Center the background image */
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 95%;
+            width: 250px;
+            position: fixed;
+            z-index: 1;
+            top: 2.5%;
+            left: 2.5%;
+            background-color: rgba(51, 51, 51, 0.95);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #d4af37;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+       
+
+        .footer {
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(51, 51, 51, 0.95);
+            color: #d4af37;
+            box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* Enhance modal background for better content visibility */
+        .modal-content {
+            background-color: rgba(51, 51, 51, 0.9);
+            /* Slightly transparent background */
+            transition: all 0.3s ease;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #333;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #d4af37;
+            width: 50%;
+            color: #d4af37;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #d4af37;
+            cursor: pointer;
+        }
+
+        .settings-section {
+            margin-bottom: 40px;
+        }
+
+        .settings-section h3 {
+            border-bottom: 1px solid #d4af37;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #d4af37;
+        }
+
+        .settings-option {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .settings-option label {
+            flex-grow: 1;
+            font-size: 16px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            background-color: #222;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            margin: 5px 0;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #d4af37;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #c9a030;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        #houses-content {
+        display: block; /* Ensure it's always shown */
+        width: 100%; /* Full width of the container */
+        max-height: 60%; /* Maximum height before scrolling */
+        overflow-y: auto; /* Enable vertical scrolling */
+        margin-top: 20px; /* Space from the welcome message */
+        padding: 10px; /* Padding inside the houses content */
+        border: 2px solid #d4af37; /* Border styling */
+        background-color: rgba(26, 26, 26, 0.95); /* Background styling */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+        border-radius: 10px; /* Rounded corners */
+    }
+
+        #houses-content h2 {
+            color: #d4af37;
+            /* Gold color */
+            margin: 0 0 20px 0;
+            /* Adjust spacing */
+        }
+
+        #houses-content .electricity-reading {
+            background-color: #222;
+            /* Dark background for contrast */
+            color: #fff;
+            /* White text for readability */
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            /* Rounded corners for each reading */
+        }
+
+        #houses-content li {
+            font-size: 24px;
+            /* Larger font size for list items */
+            margin: 20px 0;
+            /* Increased margin */
+            list-style-type: none;
+            /* Remove default bullet points */
+            transition: all 0.3s ease;
+            /* Smooth transition for hover effect */
+            border: 3px solid transparent;
+            /* Transparent border initially */
+            padding: 20px;
+            /* Increased padding */
+            border-radius: 10px;
+            /* Rounded corners */
+
+        }
+
+        .electricity-reading {
+            background-color: #222;
+            /* Darker background for each reading */
+            padding: 15px;
+            /* Padding around each reading for spacing */
+            border-radius: 5px;
+            /* Rounded corners for the readings */
+            margin: 10px 0;
+            /* Space between readings */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            /* Shadow for depth */
+        }
+
+        #houses-content li:hover {
+            border-color: #d4af37;
+            /* Gold border on hover */
+            background-color: rgba(255, 255, 255, 0.1);
+            /* Semi-transparent background on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            /* Enhanced shadow on hover */
+        }
+
+        #houses-content li h3 {
+            font-size: 28px;
+            /* Larger font size for house number */
+            color: #d4af37;
+            /* Gold color for house number */
+        }
+
+        #houses-content li p {
+            font-size: 20px;
+            /* Font size for kWh */
+            color: #FFF;
+            /* White color for kWh */
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #d4af37;
+            /* Gold color to match the theme */
+            cursor: pointer;
+            /* Cursor pointer to indicate clickable */
+        }
+
+        .close:hover {
+            color: #f1f1f1;
+            /* Light color on hover */
+        }
+
+        #closeHouses {
+            display: block !important;
+            position: absolute !important;
+            top: 0 !important;
+            right: 0 !important;
+            background-color: white !important;
+            color: black !important;
+            cursor: pointer !important;
+            z-index: 100 !important;
+            /* Ensure it's on top */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <!-- Removed the Monthly, Daily, and Current Usage links -->
+        <a href="#" onclick="fetchHouseData()" id="showHousesBtn">Houses</a> <!-- Assign ID for event listener -->
+        <div class="bottom-links">
+            <a href="#" onclick="openSettings()">Settings</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1>Welcome!!</h1>
+        <div id="houses-content" style="display: none;"> <!-- Container for dynamic electricity readings -->
+            <span class="close" id="closeHouses">×</span>
+        </div>
+    </div>
+    <!-- The Modal -->
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h2>Settings</h2>
+            <div class="settings-section">
+                <h3>User Profile</h3>
+                <div class="settings-option"><label>Username: <input type="text" id="username"></label>
+                </div>
+            </div>
+             <div class="settings-section">
+                <h3>Account Security</h3>
+                <div class="settings-option"><label>Current Password: <input type="password"
+                            id="currentPassword"></label></div>
+                <div class="settings-option"><label>New Password: <input type="password" id="newPassword"></label>
+                </div>
+                <div class="settings-option"><label>Confirm New Password: <input type="password"
+                            id="confirmNewPassword"></label></div>
+            </div>
+            <button id="saveChangesBtn"
+                style="background-color: #d4af37; color: #333; border: none; padding: 10px; cursor:pointer;">Save
+                Changes</button>
+        </div>
+    </div>
+
+
+    <script>
+        // Previous scripts
+        function openSettings() {
+            var modal = document.getElementById("settingsModal");
+            modal.style.display = "block";
+        }
+
+        function logout() {
+            // Redirect to login or simulate a logout
+            window.location.href = 'login.html'; // Assuming '/login' is your login page
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function () {
+            var modal = document.getElementById("settingsModal");
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            var modal = document.getElementById("settingsModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Additional function to dynamically add electricity readings
+        // JavaScript for handling clicks and updating content
+        // Consolidated JavaScript handling settings modal, logout, and houses content display
+        document.addEventListener('DOMContentLoaded', function () {
+            // Settings Modal
+            var settingsModal = document.getElementById("settingsModal");
+            document.getElementById('openSettingsBtn').addEventListener('click', function () {
+                settingsModal.style.display = "block";
+            });
+        });
+        settingsModal.querySelector(".close").addEventListener('click', function () {
+            settingsModal.style.display = "none";
+        });
+
+        // Logout function
+        function logout() {
+            window.location.href = 'login.html'; // Assuming 'login.html' is the login page
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fetch and display house data when "Houses" button is clicked
+            document.getElementById('showHousesBtn').addEventListener('click', fetchHouseData);
+
+            
+            // When the user clicks on <span> (x), close the houses content
+            document.getElementById("closeHouses").addEventListener('click', function () {
+                var housesContent = document.getElementById("houses-content");
+                housesContent.style.display = "none";
+            });
+
+            // Additional functionalities for Settings Modal, logout, etc.
+            // Ensure to avoid duplicate function definitions for logout, openSettings, etc.
+        });
+        function logout() {
+            window.location.href = 'login.html';
+        }
+
+        // Close the modal when the user clicks anywhere outside of it
+        window.onclick = function (event) {
+            var settingsModal = document.getElementById("settingsModal");
+            if (event.target == settingsModal) {
+                settingsModal.style.display = "none";
+            }
+        };
+        // Close modal with close button
+        document.querySelectorAll('.close').forEach(function (element) {
+            element.onclick = function () {
+                document.getElementById("settingsModal").style.display = "none";
+            };
+        });
+        
+        document.addEventListener('DOMContentLoaded', function () {
+        // Function to fetch and display house data
+        function fetchHouseData() {
+            // Fetch monthly usage data from the server
+            fetch('/api/monthly-usage')
+                .then(response => response.json())
+                .then(data => {
+                    // Clear any previous data
+                    document.getElementById("houses-content").innerHTML = "";
+                    // Create elements to display each house's data
+                    for (const [house_number, monthly_usage] of Object.entries(data)) {
+                        // Create a div for each house's data
+                        const houseDiv = document.createElement("div");
+                        houseDiv.className = "electricity-reading";
+                        // Create a heading for the house number
+                        const heading = document.createElement("h3");
+                        heading.textContent = "House " + house_number;
+                        // Create a paragraph for the monthly usage
+                        const paragraph = document.createElement("p");
+                        paragraph.textContent = "Monthly Usage: " + monthly_usage + " kWh";
+                        // Append heading and paragraph to the house div
+                        houseDiv.appendChild(heading);
+                        houseDiv.appendChild(paragraph);
+                        // Append house div to houses-content div
+                        document.getElementById("houses-content").appendChild(houseDiv);
+                        // Add click event listener to each house div to display more info
+                        houseDiv.addEventListener("click", function () {
+                            alert("House Number: " + house_number + "\nMonthly Usage: " + monthly_usage + " kWh");
+                        });
+                    }
+                    // Show houses-content div
+                    document.getElementById("houses-content").style.display = "block";
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Event listener for "Houses" button
+        document.getElementById('showHousesBtn').addEventListener('click', fetchHouseData);
+
+        // Event listener for close button in houses content
+        document.getElementById("closeHouses").addEventListener('click', function () {
+            var housesContent = document.getElementById("houses-content");
+            housesContent.style.display = "none";
+        });
+    });
+
+    </script>
+
+    <div class="footer">
+        © 2024 Dashboard. All rights reserved.
+    </div>
+
+    <script>
+
+        function openSettings() {
+            var modal = document.getElementById("settingsModal");
+            modal.style.display = "block";
+        }
+
+        // Function to save changes in settings
+        function saveSettings() {
+            // Collect user inputs
+            var username = document.querySelector('#username').value;
+            var emailNotifications = document.querySelector('#emailNotifications').checked;
+            var smsNotifications = document.querySelector('#smsNotifications').checked;
+            var currentPassword = document.querySelector('#currentPassword').value;
+            var newPassword = document.querySelector('#newPassword').value;
+            var confirmNewPassword = document.querySelector('#confirmNewPassword').value;
+
+            // Prepare data to send to backend
+            var settingsData = {
+                username: username,
+                emailNotifications: emailNotifications,
+                smsNotifications: smsNotifications,
+                currentPassword: currentPassword,
+                newPassword: newPassword,
+                confirmNewPassword: confirmNewPassword
+            };
+
+            // Simulate sending data to backend
+            console.log("Settings saved:", settingsData);
+
+            // Close the modal after saving settings
+            var modal = document.getElementById("settingsModal");
+            modal.style.display = "none";
+        }
+
+        // Event listener for save changes button
+        document.getElementById('saveChangesBtn').addEventListener('click', saveSettings);
+
+        document.getElementById('showHousesBtn').addEventListener('click', showHouses);
+
+    </script>
+</body>
+
+</html>
